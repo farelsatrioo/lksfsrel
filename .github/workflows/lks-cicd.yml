@@ -60,6 +60,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: create .env
+        run: |
+          echo AWS_ACCESS_KEY_ID= ${{ secrets.AWS_ACCESS_KEY_ID }} > .env
+          echo AWS_SECRET_ACCESS_KEY= ${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .env
+          echo AWS_SESSION_TOKEN= ${{ secrets.AWS_SESSION_TOKEN }} >> .env
+          echo AWS_REGION= ${{ secrets.AWS_REGION }} >> .env
+          echo S3_BUCKET_NAME= ${{ secrets.S3_BUCKET_NAME }} >> .env
+          echo API_GATEWAY_URL= ${{ secrets.API_GATEWAY_URL }} >> .env
+          echo EFS_PATH= mnt/efs/log/app.log >> .env
+          ls -a
+
       - name: Zip the application
         run: zip -r flask-app.zip .
 
